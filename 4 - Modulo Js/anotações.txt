@@ -1,0 +1,180 @@
+==> Tipos de dados JS:
+
+* tipos primitivos:
+
+--number e bigint: number consegue armazenar numeros inteiros e numeros float,
+o big int só trabalha com numeros inteiros e é destinado a numeros muito grandes.
+--string: trabalha com texto
+--boolean: trabalha com logica true e false
+--null e undefined
+
+* objetos e funções
+
+==> Como trabalhar com dados no JS:
+
+* Criar variaveis:
+--let: modo mais moderno de criar variaveis, modo recomendado a usar
+--var: modo de criar variavel
+--const: modo de criar dados constantes, que não pode mudar posteriormente
+
+obs: Ao criar uma variavel no js, não é preciso especificar o tipo de dados daquela variavel,
+pois o js utiliza uma tipagem dinamica, ou seja, a variavel pode mudar de tipo ao longo do tempo
+
+==> Expressoes e operadores no JS:
+
+-- Aritmeticos:
++ = soma
+- = subtração
+* = multiplicação
+/ = divisao
+% = resto da divisao
+
+-- Atribuição:
+= igual a 
++= somar o valor a 
+-= subtrair o valor a
+*= multiplicar o valor a
+/= dividir o valor a
+%= captar o valor do resto de a
+
+-- Encadeamento:
+é o ato de concatenar variaveis string + string, ou numeros + string 
+"Lucas" + "Ribeiro" = Lucas Ribeiro
+1 + "2" = 12
+
+-- Incremento/Decremento:
+variavel++
+variavel--
+
+obs: "lucas".length == 5, lucas[0] == "l"
+==> Anotações e comentarios JS:
+-- Uma linha: //Comentario aqui....
+-- Varias linhas: /* Comentario aqui....
+                      */
+
+==> Operadores logicos no Js:
+Eles retornam um valor booleano: true ou false
+
+== retorna a igualdade entre valores
+=== retorna igualdade entre valores e tipo de valor
+!= retorna a diferença entre valores
+!== retorna a diferença entre valores e tipo de valor
+> maior que
+>= maior ou igual a 
+< menor que
+<= menor ou igual a
+&& operador AND
+|| operador OR
+! operador NOT
+
+==> Arrays bidimensionais Js:
+//Declaração
+let arrayNivel1 = ["Item1", "Item 2", "Item3"] --> Array nivel 1
+let arrayNivel2= [
+                    [Item1.1 , Item1.2, Item1.3], --> Linha 1
+                    [Item2.1, Item2.2, Item2.3] --> Linha 2
+                  ]
+let arrayNivel3= [
+                    [Item1.1, [Item1.2.1, Item1.2.2] 
+                    , Item2, Item3], --> Linha 1
+                    [Item4, Item5, Item6] --> Linha 2
+                  ]
+
+console.table(variavel array) == Exibe uma tabela com base no array
+
+==> Objetos Js
+as propriedades ou funções (metodos do objeto) podem ser referenciados atraces
+Encadeamento com ponto "." ou colchetes
+
+para definir um atributo ou propriedade de um objeto,  "objeto.nomeDoAtributo"
+o atributo do objeto tambem pode ser um array "objeto.nomeDoAtributo = ["item 1","item 2","item 3"]"
+
+==> Declarando funções no Js:
+
+/*
+* Função simples sem retorno
+*/
+function nameFunction(){
+  //Codigo aqui
+}
+
+/*
+* Função que recebe um determinado parametro e retorna algum parametro
+*/
+function nameFunction(parametros aqui){
+  //Codigo aqui
+  return algum parametro;
+}
+
+/*
+* Função que recebe um determinado parametro e que possui valor padrao
+*/
+function nameFunction(parametro = valor padrao para o parametro){
+  return;
+}
+
+==> Metodos:
+* São funções atreladas a objetos
+let objeto = {
+  atributo1: "",
+  atributo2: "",
+  nameMethod(){
+    //digite o metodo aqui
+    //Aqui para referenciar algum atributo do objeto, devemos usar o "this"
+  }
+}
+
+==> Funções recursivas:
+São funções que se repetem e se chamam multiplas vezes, até que uma condição seja feita
+
+==> Funções anonimas:
+São funções que sao salvas em um determinado tipo de variavel, tornando a variavel, uma copia da função salva,
+tambem pode ser entendido como uma função que não possui nomeDoAtributo
+ex:
+function dizerOi (){
+  return "olá mundo"
+}
+let oi = dizerOi
+
+entao o "oi" na verdade representa isso abaixo:
+let oi === function (){
+  return "olá mundo"
+}
+
+==> High-order functions
+São funções que na verdade são passadas como parametros de outras funções, muito utilizado com funções anonimas
+let obj = []
+obj.forEach(function () = {
+  //codigo aqui
+})
+
+let operacao(valor1, valor2, soma){
+  return soma(valor1,valor2)
+}
+
+map = utiliza um array para criar outro array, é muito utilizado na orientação a objetos para 
+mapear algum atributo especifico dos objetos em um array
+
+ex: let nomesExistentes = obj.map(function(objeto){
+  return objeto.nome
+})
+neste caso, temos uma função que recebe uma outra função de callback, sendo ela a 
+high-order function
+
+filter = serve para filtrar informações dos atributos de um objeto, dentro do array
+
+ex: ao ter um array com 10 objetos do tipo pessoa, cada uma com um nome, para filtrar pessoas
+com apenas 20 anos
+
+let idadePessoas = obj.filter(function(pessoa){
+  return pessoa.idade == 20
+})
+
+reduce = serve para acumular valores dos objetos em um array
+ex:
+let nomesPessoas = obj.reduce(function(nomesAcumulados,pessoa){
+  return nomeAcumulado + pessoa.nome
+}, 0)
+
+==> Objetos globais JS:
+são objetos nativos do js, que podem ser chamados e utilizados pelos programadores de maneira nativa

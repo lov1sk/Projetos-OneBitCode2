@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="main-content">
+      <section class="forms">
+        <div id="addForm" class="add-form">
+          <h2>Efetuar nova transação</h2>
+          <form>
+            <label for="addName">Nome do Usuario</label>
+            <input
+              type="text"
+              name="addname"
+              id="addName"
+              placeholder="Insira o nome do usuario"
+            />
+
+            <label for="addValue">Valor da transação </label>
+            <input
+              type="number"
+              name="addValue"
+              id="addValue"
+              placeholder="Insira o valor em R$"
+            />
+            <button type="submit">Adicionar transação</button>
+          </form>
+        </div>
+        <hr />
+        <div id="removeForm" class="remove-form">
+          <h2>Remover Transações</h2>
+          <form >
+            <label for="removeId">ID</label>
+            <input
+              type="number"
+              name="removeId"
+              id="removeId"
+              placeholder="Insira o id a ser excluido"
+            />
+            <button type="submit">Remover transação</button>
+          </form>
+        </div>
+        <hr />
+        <div id="attForm" class="att-form">
+          <h2>Atualizar transações</h2>
+          <form>
+            <label for="attId">ID do Usuario</label>
+            <input type="text" name="attId" id="attId"  placeholder="Insira o Id a ser atualizado" />
+
+            <label for="attName">Nome do Usuario</label>
+            <input type="text" name="attName" id="attName" placeholder="Insira o nome a ser atualizado"/>
+
+            <label for="attValue">Valor do usuario</label>
+            <input
+              type="number"
+              name="attValue"
+              id="attValue"
+              placeholder="Insira o valor a ser atualizado"
+            />
+            <button type="submit">Atualizar transação</button>
+          </form>
+        </div>
+        <hr />
+      </section>
+      <section class="transactions-list">
+        <h2>Transações</h2>
+        <div class="transactions" id="transactions"></div>
+      </section>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

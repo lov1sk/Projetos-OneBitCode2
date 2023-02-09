@@ -1,0 +1,19 @@
+{
+  "name": "day-js",
+  "version": "1.0.0",
+  "description": "Exercicio do Curso OneBitCode",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "day-js",
+    "exercicio",
+    "aprendizado"
+  ],
+  "author": "Lucas Ribeiro",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.7"
+  }
+}

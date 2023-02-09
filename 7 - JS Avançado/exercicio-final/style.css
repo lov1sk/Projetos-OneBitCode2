@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+  width: 70%;
+}
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  padding-right: 10%;
+}
+.forms > hr {
+  width: 50%;
+}
+
+.add-form,
+.remove-form,
+.att-form {
+  text-align: center;
+  width: 70%;
+  padding: 10px;
+}
+.add-form > form,
+.remove-form > form,
+.att-form > form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button {
+  width: 130px;
+  height: 30px;
+  background-color: #ffffff;
+  color: #0d6efd;
+  border: 1px solid #054ab1;
+  border-radius: 5px;
+  align-self: center;
+}
+
+button:hover {
+  width: 130px;
+  height: 30px;
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: 1px solid #054ab1;
+  border-radius: 5px;
+  align-self: center;
+  transition: 400ms;
+}
+
+input {
+  width: 220px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  align-self: center;
+  text-align: center;
+}
+input:hover {
+  width: 220px;
+  height: 30px;
+  align-self: center;
+  text-align: center;
+  border: 1px solid #054ab1;
+  border-radius: 5px;
+  background-color: #c0d6f7;
+}
+
+.transactions-element {
+  width: 200px;
+  padding: 10px;
+}
+.transactions-element > ul {
+  list-style: none;
+}
+.transactions-element > h3 {
+  margin-bottom: 5px;
+}
