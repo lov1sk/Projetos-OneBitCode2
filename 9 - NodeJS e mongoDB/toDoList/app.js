@@ -2,7 +2,7 @@
 const express = require("express");
 const checklists = require("./src/routes/checklist.js");
 const test = require("./src/routes/test.js");
-
+require("./config/database.js");
 /* Salvando na constante app todos os
  * metodos do express, no caso para ser
  * chamados na aplicação */

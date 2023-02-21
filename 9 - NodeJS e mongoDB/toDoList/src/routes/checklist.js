@@ -19,6 +19,9 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   res.send(`ID: ${req.params.id}`);
 });
+router.put("/:id", (req, res) => {
+  res.send(`PUT ID: ${req.params.id}`);
+});
 
 router.post("/", (req, res) => {
   console.log(req.body);
