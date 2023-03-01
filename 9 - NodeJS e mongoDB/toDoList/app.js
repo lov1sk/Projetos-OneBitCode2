@@ -14,12 +14,13 @@ mongo();
 /** Uso de um middleware que processa se possui algum json no body da requisição e salva em req.body
  * Neste caso de midleware, ele deixa sempre em maos a informação do json no body da requisição para ser usada */
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "src/views"));
+app.set("view engine", "ejs");
 
 app.use(checklist);
 app.use(task);
 app.use(index);
-app.set("views", path.join(__dirname, "src/views"));
-app.set("view engine", "ejs");
 
 /**
  * Utilizando o middleware router feito para lidar com a rota de /checklists, definido no app.user

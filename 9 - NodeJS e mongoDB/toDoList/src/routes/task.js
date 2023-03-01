@@ -1,6 +1,5 @@
 //Importando o express do node_modules
 const express = require("express");
-const mongoose = require("mongoose");
 const taskModel = require("../models/Task");
 
 //Criando uma constante router para a rota /checklists
@@ -20,6 +19,23 @@ router.post("/task-create", async (req, res) => {
   console.log("Bateu aqui");
   const taskCreated = await taskModel.create(req.body);
   return res.status(200).json(taskCreated);
+});
+
+router.get("/task-show/:id", async (req, res) => {
+  const { id } = req.params;
+  const tasks = await taskModel.findById(id);
+  return res.status(200).render("tasks/show", { tasks: tasks });
+});
+router.put("/task-update/:id", async (req, res) => {
+  console.log("Bateu aqui");
+  const { id } = req.params;
+  const taskUpdated = await taskModel.findByIdAndUpdate(id, req.body);
+  return res.status(200).json(taskUpdated);
+});
+router.delete("/task-delete/:id", async (req, res) => {
+  const { id } = req.params;
+  const taskDeleted = await taskModel.findByIdAndDelete(id);
+  return res.status(200).json(taskDeleted);
 });
 //Exportando a rota /checklists
 module.exports = router;
