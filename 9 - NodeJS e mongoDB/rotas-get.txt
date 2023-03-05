@@ -1,0 +1,25 @@
+AMBOS: const express = require("express");
+
+==> Criando um arquivo separado e definindo uma constante router
+1º Arquivo separado:
+const router = express.Router();
+
+router.get("/", (req, res) => {
+  console.log("teste");
+  res.send();
+});
+
+2º Arquivo main:
+/**
+ * Utilizando o middleware router feito para lidar com a rota de /checklists, definido no app.user
+ */
+app.use("/checklists", checklists);
+
+
+==> No arquivo main, utilizando os metodos do express:
+const app = express();
+
+app.get("/", (req, res) => {
+  console.log("Bem Vindo!");
+  res.send("<h1> My List </h1>");
+});
