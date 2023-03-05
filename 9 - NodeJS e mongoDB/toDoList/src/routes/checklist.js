@@ -1,39 +1,76 @@
-//Importando o express do node_modules
+/**
+ **************************************
+ * Importando o express do node_modules
+ **************************************
+ */
 const express = require("express");
 const checklistModel = require("../models/checklist");
 const router = express.Router();
 
-router.post("/checklist-create", async (req, res) => {
-  const checklistCreated = await checklistModel.create(req.body);
-  return res.status(200).json(checklistCreated);
+/**
+ *******************************
+ * Rotas para criar um checklist
+ *******************************
+ */
+router.get("/new", (req, res) => {
+  let checklists = new checklistModel();
+  return res.status(200).render("checklists/new", { checklist: checklists });
+});
+router.post("/", async (req, res) => {
+  const newChecklist = await checklistModel.create(req.body.checklist);
+  console.log({ newChecklist });
+  res.status(200).redirect("/checklists");
 });
 
-router.get("/checklist-show", async (req, res) => {
+/**
+ ****************************************************************
+ * Rotas para ver um checklist ou todos os checklists cadastrados
+ ****************************************************************
+ */
+router.get("/checklists", async (req, res) => {
   const checklistsList = await checklistModel.find();
   return res
     .status(200)
     .render("checklists/index", { checklists: checklistsList });
 });
-/**
- * Metodo para retornar no response o id passado em /checklists/id
- * o ":" significa que a rota em questão recebera um parametro
- */
-router.get("/checklist-show/:id", async (req, res) => {
+
+router.get("/checklists/:id", async (req, res) => {
   const { id } = req.params;
-  const checklist = await checklistModel.findById(id);
+  const checklist = await checklistModel.findById(id).populate("tasks");
   return res.status(200).render("checklists/show", { checklist: checklist });
 });
-router.put("/checklist-update/:id", async (req, res) => {
-  console.log("Bateu aqui");
+
+/**
+ *********************************************************
+ * Rotas para a view edit e para poder editar os checklists
+ *********************************************************
+ */
+router.get("/:id/edit", async (req, res) => {
   const { id } = req.params;
-  const updatedChecklist = await checklistModel.findByIdAndUpdate(id, req.body);
-  return res.status(200).json(updatedChecklist);
+  const checklist = await checklistModel.findById(id);
+  console.log(checklist);
+  res.status(200).render("checklists/edit", { checklist: checklist });
 });
-router.delete("/checklist-delete/:id", async (req, res) => {
-  const { id } = req.params;
-  const checklistDeleted = await checklistModel.findByIdAndDelete(id);
-  return res.status(200).json(checklistDeleted);
+router.put("/:id", async (req, res) => {
+  let { name } = req.body.checklist;
+  console.log(req.params);
+  let checklist = await checklistModel.findById(req.params.id, { name });
+  try {
+    await checklist.updateOne({ name });
+    res.status(200).redirect("/checklists");
+  } catch (error) {}
 });
 
-//Exportando a rota /checklists
+/**
+ ********************************
+ * Rota para deletar um checklist
+ ********************************
+ */
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  await checklistModel.findByIdAndDelete(id);
+  res.status(200).redirect("/checklists");
+});
+
+//Exportando a rota /checklists como um middleware
 module.exports = router;

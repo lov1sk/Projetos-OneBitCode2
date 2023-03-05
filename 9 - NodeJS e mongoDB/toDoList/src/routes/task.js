@@ -1,41 +1,63 @@
-//Importando o express do node_modules
+/**
+ * Importando o express, os models de task e checklist e
+ * criação de rotas dependentes e independentes de checklist
+ */
 const express = require("express");
 const taskModel = require("../models/Task");
-
-//Criando uma constante router para a rota /checklists
-const router = express.Router();
+const checklistModel = require("../models/checklist");
+const checklistDependentRoute = express.Router();
+const simpleRoute = express.Router();
 
 /**
- * Metodo para quando a rota /checklists for chamada no postman ou browser
- * ele retornar um console log
+ *********************************************************
+ * Rotas para adicionar tarefas a um determinado checklist
+ *********************************************************
  */
-router.get("/task-show", async (req, res) => {
-  console.log("Bateu aqui");
-  const taskList = await taskModel.find();
-  return res.status(200).json(taskList);
+checklistDependentRoute.get("/checklists/:id/tasks/new", async (req, res) => {
+  let task = taskModel();
+  return res
+    .status(200)
+    .render("tasks/new", { checklistId: req.params.id, task: task });
 });
 
-router.post("/task-create", async (req, res) => {
-  console.log("Bateu aqui");
-  const taskCreated = await taskModel.create(req.body);
-  return res.status(200).json(taskCreated);
+checklistDependentRoute.post("/:id/tasks", async (req, res) => {
+  let { name } = req.body.task;
+  let task = new taskModel({ name, checklist: req.params.id });
+  await task.save();
+  let checklist = await checklistModel.findById(req.params.id);
+  checklist.tasks.push(task);
+  await checklist.save();
+  res.redirect(`/checklists/${req.params.id}`);
 });
 
-router.get("/task-show/:id", async (req, res) => {
-  const { id } = req.params;
-  const tasks = await taskModel.findById(id);
-  return res.status(200).render("tasks/show", { tasks: tasks });
+/**
+ *****************************************************
+ * Rotas para mudar o estado de uma task: Done, Undone
+ *****************************************************
+ */
+simpleRoute.put("/task/:id", async (req, res) => {
+  let task = await taskModel.findById(req.params.id);
+  task.set(req.body.task);
+  await task.save();
+  return res.status(200).json({ task });
 });
-router.put("/task-update/:id", async (req, res) => {
-  console.log("Bateu aqui");
-  const { id } = req.params;
-  const taskUpdated = await taskModel.findByIdAndUpdate(id, req.body);
-  return res.status(200).json(taskUpdated);
+simpleRoute.delete("/task/:id", async (req, res) => {
+  let task = await taskModel.findByIdAndDelete(req.params.id);
+  let checklist = await checklistModel.findById(task.checklist);
+  let taskToRemove = checklist.tasks.indexOf(task._id);
+  checklist.tasks.slice(taskToRemove, 1);
+  checklist.save();
+  res.redirect(`/checklists`);
 });
-router.delete("/task-delete/:id", async (req, res) => {
-  const { id } = req.params;
-  const taskDeleted = await taskModel.findByIdAndDelete(id);
-  return res.status(200).json(taskDeleted);
-});
-//Exportando a rota /checklists
-module.exports = router;
+
+/**
+ ***********************************************************
+ * Exportando as rotas checklistDependentRoute e simpleRoute
+ * como metodos de um objeto
+ ***********************************************************
+ */
+
+module.exports = {
+  checklistDependent: checklistDependentRoute,
+  simpleRoute: simpleRoute,
+};

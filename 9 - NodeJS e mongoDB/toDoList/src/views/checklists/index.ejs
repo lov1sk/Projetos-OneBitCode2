@@ -8,12 +8,9 @@ include('../layouts/menu')%>
         <h1 class="title size-4">Listas de Tarefas</h1>
       </div>
       <div class="column is-one-fifth">
-        <a href="checklist-form.html" class="button is-success is-small"
-          >Nova Lista</a
-        >
+        <a href="/new" class="button is-success is-small">Nova Lista</a>
       </div>
     </div>
-
     <div class="columns is-multiline">
       <% checklists.forEach( checklist => { %>
       <div class="column is-one-quarter">
@@ -25,17 +22,21 @@ include('../layouts/menu')%>
           <footer class="card-footer">
             <p class="card-footer-item">
               <span>
-                <a href="checklist-show/<%= checklist._id %>">Ver</a>
+                <a href="/checklists/<%= checklist.id %>">Ver</a>
               </span>
             </p>
             <p class="card-footer-item">
               <span>
-                <a href="checklist-form.html">Editar</a>
+                <a href="<%=checklist.id%>/edit">Editar</a>
               </span>
             </p>
             <p class="card-footer-item">
               <span>
-                <a href="#" class="has-text-danger">Remover</a>
+                <a
+                  href="<%=checklist.id %>?_method=delete"
+                  class="has-text-danger"
+                  >Remover</a
+                >
               </span>
             </p>
           </footer>
