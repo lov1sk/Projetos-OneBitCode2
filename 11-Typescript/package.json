@@ -1,0 +1,17 @@
+{
+  "name": "11---typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "tsc-watch": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.5",
+    "typescript": "^5.0.2"
+  }
+}
